@@ -23,8 +23,7 @@ public class DemoController extends OpMode {
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         clawServo = hardwareMap.get(Servo.class, "clawServo");
         spinnyWheel = hardwareMap.get(DcMotor.class, "carouselMotor");
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
     }
 
     void drive(float x, float y, float turn) {
@@ -36,7 +35,7 @@ public class DemoController extends OpMode {
         backLeft.setPower(Math.sin(angle - 0.25 * Math.PI) * turnFactor * magnitude + turn);
 
         //front left and back right motors
-        frontRight.setPower(Math.sin(angle + 0.25 * Math.PI) * turnFactor * magnitude + turn);
+        frontLeft.setPower(Math.sin(angle + 0.25 * Math.PI) * turnFactor * magnitude + turn);
         backRight.setPower(Math.sin(angle + 0.25 * Math.PI) * turnFactor * magnitude - turn);
     }
 
@@ -56,9 +55,9 @@ public class DemoController extends OpMode {
         moveArm( -gamepad2.left_stick_y );
 
         if ( gamepad2.a ) {
-            clawServo.setPosition( 0.2 );
+            clawServo.setPosition( 0.3 );
         } else if ( gamepad2.y ) {
-            clawServo.setPosition( 0.8 );
+            clawServo.setPosition( 0.5 );
         }
 
         moveSpinny( gamepad2.right_stick_y );
