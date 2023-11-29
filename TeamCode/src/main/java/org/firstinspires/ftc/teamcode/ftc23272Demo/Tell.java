@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.ftc23272Demo;
 
 
+import static java.lang.Math.min;
+
 import android.graphics.RenderNode;
+import android.view.Display;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,9 +12,21 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "Scrimmage1")
+@TeleOp(name = "Teleop (Choose this one!!)")
 public class Tell extends OpMode {
 
+    double pp = .85;
+    double maxSpeed = 0.8;
+    double OutOpen = 0;
+    boolean DpadUpPressed;
+
+    boolean AIsPressed;
+    boolean DpadLeftPressed;
+
+    boolean DpadRightPressed;
+
+    boolean DpadDownPressed;
+    double dd = 0.27;
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
@@ -22,6 +37,23 @@ public class Tell extends OpMode {
     Servo servo2;
     DcMotor motor5;
 
+    Servo servo3;
+
+    DcMotor motor6;
+
+    DcMotor motor7;
+
+    Servo servo4;
+
+    //reduces the sensitivity of the robot
+    public double scaleStickValue(double value) {
+        double squared = value*value;
+        if (value < 0.0) {
+            squared = -squared;
+        }
+        return squared*maxSpeed;
+    }
+
     public void init() {
 
 
@@ -30,89 +62,118 @@ public class Tell extends OpMode {
         motor3 = hardwareMap.get(DcMotor.class, "motor3");
         motor4 = hardwareMap.get(DcMotor.class, "motor4");
         motor5 = hardwareMap.get(DcMotor.class, "motor5");
+        motor6 = hardwareMap.get(DcMotor.class, "motor6");
+        motor7 = hardwareMap.get(DcMotor.class, "motor7");
 
-        motor2.setDirection(DcMotorSimple.Direction.REVERSE);
-        motor3.setDirection(DcMotorSimple.Direction.REVERSE);
+        motor1.setDirection(DcMotorSimple.Direction.REVERSE);
+        //motor2.setDirection(DcMotorSimple.Direction.REVERSE);
+        //motor3.setDirection(DcMotorSimple.Direction.REVERSE);
+        motor4.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+         motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+         motor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+         motor4.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motor6.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
+        servo3 = hardwareMap.get(Servo.class, "servo3");
+        servo4 = hardwareMap.get(Servo.class, "servo4");
 
         // reset servos to 'center' position, continuous servos to 'off'
-        servo1.setPosition(0.5);
-        servo1.setPosition(0.5);
+        servo1.setPosition(dd);
+        servo2.setPosition(0.5);
+        servo3.setPosition(0.5);
+        servo4.setPosition(.5);
+
+        servo3.setDirection(Servo.Direction.REVERSE);
     }
 
     public void loop() {
 
-        double Cl = 0.1;
-        double CCL = -0.1;
-        double px = gamepad1.left_stick_x;
-        double py = -gamepad1.left_stick_y;
-        double pa = gamepad1.left_trigger - gamepad1.right_trigger;
 
-        double p1 = -px + py + pa;
-        double p2 = px + py - pa;
-        double p3 = -px + py - pa;
-        double p4 = px + py + pa;
-        double max = Math.max(1.0, Math.abs(p1));
-        max = Math.max(max, Math.abs(p2));
-        max = Math.max(max, Math.abs(p3));
-        max = Math.max(max, Math.abs(p4));
-        p1 /= max;
-        p2 /= max;
-        p3 /= max;
-        p4 /= max;
-        motor1.setPower(p1);
-        motor2.setPower(p2);
-        motor3.setPower(p3);
-        motor4.setPower(p4);
 
-        telemetry.addData("Right", gamepad2.right_trigger);
-        telemetry.addData("Left", gamepad2.left_trigger);
-        motor5.setPower(gamepad2.right_trigger);
-        motor5.setPower(-gamepad2.left_trigger);
-    /*
-            if (gamepad2.dpad_up) {
-                Cl += .1;
-                if (Cl >= 1.0) {
-                    Cl = 0.1;
-                }
-            }
-            if (gamepad2.dpad_up) {
-                CCL += -.1;
-                if (CCL >= -1.0) {
-                    CCL = -0.1;
-                }
-                if (gamepad2.dpad_down) {
-                    Cl -= .1;
-                    if (Cl <= .1) {
-                        Cl = 0.1;
-                    }
-                }
-                if (gamepad2.dpad_down) {
-                    Cl -= -.1;
-                    if (Cl <= -.1) {
-                        Cl = -0.1;
-                    }
-                }
-    */
-        double dup = 0.4
-                ;
 
-        if (gamepad2.right_stick_y < -.5) {
-            servo1.setPosition(dup);
+        if (gamepad2.dpad_up != DpadUpPressed) {
+            dd += .005;
         }
-        if (gamepad2.right_stick_y > -.5) {
-            servo1.setPosition(0.5);
+        DpadUpPressed = gamepad2.dpad_up;
 
-            if (gamepad2.left_stick_y < -.5) {
-                servo2.setPosition(dup);
-            }
-            if (gamepad2.left_stick_y > -.5) {
-                servo2.setPosition(0.5);
-            }
+        if (gamepad2.dpad_down != DpadDownPressed) {
+            dd -= .005;
+        }
+        DpadDownPressed = gamepad2.dpad_down;
+
+        if (gamepad2.right_bumper) {
+            motor5.setPower(pp);
+        } else {
+            motor5.setPower(0);
+        }
+        if (gamepad2.left_bumper) {
+            motor5.setPower(-pp);
+        } else {
+            motor5.setPower(0);
+        }
+
+        if (gamepad2.right_stick_y > 0) {
+            servo1.setPosition(dd);
+        }
+        if (gamepad2.right_stick_y < 0) {
+            servo1.setPosition(.5);
+        }
+        if (gamepad2.right_trigger > .1) {
+            servo2.setPosition(.65);
+        }
+        if (gamepad2.right_trigger < .1) {
+            servo2.setPosition(0.5);
+        }
+        if (gamepad2.left_trigger > .1) {
+            servo3.setPosition(.65);
+        }
+        if (gamepad2.left_trigger < .1) {
+            servo3.setPosition(0.5);
+        }
+        if (gamepad2.dpad_left != DpadLeftPressed) {
+            pp -= .005;
+        }
+        DpadLeftPressed = gamepad2.dpad_left;
+
+        if (gamepad2.dpad_right != DpadRightPressed) {
+            pp += .005;
+        }
+        DpadRightPressed = gamepad2.dpad_right;
+
+        if (gamepad2.left_stick_y > .01) {
+            motor6.setPower(-.75);
+        } else if  (gamepad2.left_stick_y < -.01) {
+            motor6.setPower(.75);
+        } else {
+            motor6.setPower(0);
+        }
+
+
+
+        if (gamepad2.a) {
+            motor7.setPower(-1);
+        } else {
+            motor7.setPower(0);
+        }
+        if (gamepad2.y && gamepad1.y) {
+            servo4.setPosition(.85);
+        }
+        if (gamepad2.left_stick_button) {
+            motor6.setPower(0);
+        }
+        if (gamepad1.touchpad) {
+            Johnny5.dpadMode(1);
+        }
+        if (gamepad1.touchpad) {
+
         }
     }
+
 }
 
 

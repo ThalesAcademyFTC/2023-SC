@@ -71,9 +71,9 @@
             ************************************************************* -->
 
             <goBILDA5202SeriesMotor name="motor1" port="0" />
-            <goBILDA5202SeriesMotor name="motor2" port="1" />
+            <goBILDA5202SeriesMotor name="motor2" port="3" />
             <goBILDA5202SeriesMotor name="motor3" port="2" />
-            <goBILDA5202SeriesMotor name="motor4" port="3" />
+            <goBILDA5202SeriesMotor name="motor4" port="1" />
 
             <!--
 
@@ -104,7 +104,7 @@
             signal, and set "port" appropriately.
 
             ************************************************************* -->
-
+            <Servo name="clawServo" port="0" />
 
         </LynxModule>
 
@@ -121,8 +121,6 @@
 
             <goBILDA5202SeriesMotor name="armMotor" port="0" />
             <goBILDA5202SeriesMotor name="carouselMotor" port="3" />
-
-            <Servo name="clawServo" port="0" />
 
         </LynxModule>
     </LynxUsbDevice>
