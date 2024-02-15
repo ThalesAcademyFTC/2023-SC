@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.ftc23272Demo;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
 
 import android.graphics.Color;
 
 import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -13,10 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Johnny5 {
-
-
-    public static Object dpadMode;
-
+    public boolean dpadMode;
     enum ftcColor { RED, BLUE, WHITE, UNKNOWN };
     enum Direction  {FORWARD, BACKWARD, LEFT, RIGHT}
 
@@ -61,6 +60,7 @@ public class Johnny5 {
         servo1.setPosition(0.5);
         servo2.setPosition(0.5);
         servo3.setPosition(0.5);
+        dpadMode = false;
     }
 
     public Color convertToColorType(int red, int green, int blue, int alpha) {
@@ -73,32 +73,34 @@ public class Johnny5 {
         return rgb;
     }
     public ftcColor detectColorHue() {
-        Color rgb = convertToColorType(colorSensor.red(),
-                colorSensor.blue(),
-                colorSensor.green(),
-                colorSensor.alpha());
-
-        float hsv[] = new float[4];
-        Color.RGBToHSV((int)rgb.red(), (int)rgb.green(), (int)rgb.blue(), hsv);
+        int red = colorSensor.red();
+        int green = colorSensor.green();
+        int blue = colorSensor.blue();
+        //int alpha = colorSensor.alpha() / 16000;
+        //Color rgb = convertToColorType(red, green, blue, alpha);
+        float hsvValues[] = new float[3];
+        final float hsv[] = hsvValues;
+        Color.RGBToHSV(red, green, blue, hsv);
         // hsv[0] is Hue, a value between 0 and 360
         // hsv[1] is saturation, a value between 0 and 100
         // hsv[2] is brightness, a value between 0 and 100
         ftcColor detectedColor = ftcColor.UNKNOWN;
         // detect color from hsv
-
+    telemetry.addData("H", hsv[0]);
+    telemetry.addData("S", hsv[1]);
+    telemetry.addData("V", hsv[2]);
+    telemetry.update();
         if (hsv[0] >= 330 && hsv[0] <= 30) {
             return  ftcColor.RED;
         }
         if (hsv[0] <= 240 && hsv[0] >= 180) {
             return ftcColor.BLUE;
         }
-        if (hsv[0] == 0 && hsv[1] == 0 && hsv[2] == 100) {
+        if (hsv[0] == 0 && hsv[1] < 10 && hsv[2] > 90) {
             return ftcColor.WHITE;
         }
 
         return ftcColor.UNKNOWN;
-
-
     }
 
     public ftcColor detectColor() {
@@ -116,10 +118,10 @@ public class Johnny5 {
         if(red == 1 && blue < .7 && green < .9) {
             return ftcColor.RED;
         }
-        if (blue == 1 && green < .7 && blue < .7) {
+        if (blue == 1 && green < .7 && red < .7) {
             return ftcColor.BLUE;
         }
-        if (blue >= 0.9 && red >= 0.45 && green >= .85 && alpha >= 2000) {
+        if (blue >= 0.9 && red <= 0.45 && green >= .8 && alpha >= 2000) {
             return ftcColor.WHITE;
         }
         return ftcColor.UNKNOWN;
@@ -251,16 +253,18 @@ public class Johnny5 {
     public void dropPixel1() {
       openGate1();
       move(Direction.FORWARD, 4, .4);
-
+      linearOpMode.sleep(500);
       closeGate1();
     }
     public void dropPixel2() {
         openGate2();
         move(Direction.FORWARD, 4, .4);
+        linearOpMode.sleep(500);
         closeGate2();
     }
     public void openGate1() {
         servo2.setPosition(.75);
+
     }
     public void closeGate1() {
         servo2.setPosition(.5);
@@ -272,9 +276,7 @@ public class Johnny5 {
     public void closeGate2() {
         servo3.setPosition(.5);
     }
-    public static boolean dpadMode(int i) {
-
-
+    public void power() {
 
             if (gamepad1.dpad_down) {
                 motor1.setPower(.75);
@@ -302,7 +304,10 @@ public class Johnny5 {
                 motor3.setPower(0);
                 motor4.setPower(0);
             }
-        return true;
+
     }
+
+
+
 }
 

@@ -61,13 +61,18 @@ public class TopLeftBlue extends LinearOpMode {
             robot.move(Johnny5.Direction.BACKWARD, 44.5, .4);
             sleep(200);
             robot.move(Johnny5.Direction.LEFT, 10, .4);
+        } else if (detected == Johnny5.ftcColor.UNKNOWN){
+            robot.move(Johnny5.Direction.LEFT, 38, .4);
+            sleep(200);
+            robot.move(Johnny5.Direction.BACKWARD, 44.5, .4);
+
 
         } else if (Johnny5.ftcColor.RED == detected){
             robot.move(Johnny5.Direction.LEFT, 15, .4);
             sleep(200);
             robot.move(Johnny5.Direction.BACKWARD, 17, .4);
             sleep(200);
-            Johnny5.ftcColor detected2 = robot.moveUntil(Johnny5.Direction.RIGHT, Johnny5.ftcColor.WHITE, Johnny5.ftcColor.RED, 75, .25);
+            Johnny5.ftcColor detected2 = robot.moveUntil(Johnny5.Direction.RIGHT, Johnny5.ftcColor.WHITE, Johnny5.ftcColor.RED, 75, .15);
             sleep(200);
             if (detected2 == Johnny5.ftcColor.WHITE) {
                 //code for 2nd spike mark

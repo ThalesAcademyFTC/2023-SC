@@ -63,6 +63,7 @@ public class BottomRightRed extends LinearOpMode {
               sleep(200);
               robot.move(Johnny5.Direction.BACKWARD, 10, .4);
               robot.dropPixel2();
+
          } else if (detected == Johnny5.ftcColor.RED) {
              sleep(200);
              robot.move(Johnny5.Direction.FORWARD, 5, .4);
@@ -73,6 +74,7 @@ public class BottomRightRed extends LinearOpMode {
              sleep(200);
              Johnny5.ftcColor detected1 = robot.moveUntil(Johnny5.Direction.RIGHT, Johnny5.ftcColor.WHITE, Johnny5.ftcColor.WHITE, 27, .2);
              sleep(200);
+
              if (Johnny5.ftcColor.WHITE == detected1) {
                  robot.dropPixel1();
                  sleep(100);
@@ -81,7 +83,7 @@ public class BottomRightRed extends LinearOpMode {
                  robot.move(Johnny5.Direction.RIGHT, 105, .4);
                  sleep(200);
                  robot.dropPixel2();
-             } else {
+             } else if (Johnny5.ftcColor.RED == detected1) {
                  robot.move(Johnny5.Direction.FORWARD, 2, .4);
                  sleep(200);
                  robot.move(Johnny5.Direction.RIGHT, 22, .4);
@@ -93,7 +95,24 @@ public class BottomRightRed extends LinearOpMode {
                  robot.move(Johnny5.Direction.RIGHT, 83, .5);
                  sleep(200);
                  robot.dropPixel2();
+             }  else if (detected == Johnny5.ftcColor.UNKNOWN){ //parks if nothing is detected
+                 robot.move(Johnny5.Direction.FORWARD, 7, .4);
+                 sleep(200);
+                 robot.move(Johnny5.Direction.RIGHT, 88, .4);
+                 sleep(200);
+                 robot.move(Johnny5.Direction.BACKWARD, 10, .4);
+
+
              }
+
+         } else if (detected == Johnny5.ftcColor.UNKNOWN){
+             robot.move(Johnny5.Direction.FORWARD, 7, .4);
+             sleep(200);
+             robot.move(Johnny5.Direction.RIGHT, 88, .4);
+             sleep(200);
+             robot.move(Johnny5.Direction.BACKWARD, 10, .4);
+
+
          }
 
 

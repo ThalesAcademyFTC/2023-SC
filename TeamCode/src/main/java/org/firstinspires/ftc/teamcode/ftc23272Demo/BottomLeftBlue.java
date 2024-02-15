@@ -52,10 +52,10 @@ public class BottomLeftBlue extends LinearOpMode {
         telemetry.addData("R", robot.colorSensor.red()).addData("G", robot.colorSensor.green()).addData("B", robot.colorSensor.blue()).addData("A", robot.colorSensor.alpha());
         telemetry.addData("Color Detected", robot.detectColor());
         telemetry.update();
-        Johnny5.ftcColor detected = robot.moveUntil(Johnny5.Direction.FORWARD, Johnny5.ftcColor.WHITE, Johnny5.ftcColor.RED, 45, .2);
+        Johnny5.ftcColor detected = robot.moveUntil(Johnny5.Direction.FORWARD, Johnny5.ftcColor.WHITE, Johnny5.ftcColor.RED, 45, .15);
         sleep(500);
         if (Johnny5.ftcColor.WHITE == detected) {
-            robot.move(Johnny5.Direction.FORWARD, 5, .4);
+            robot.move(Johnny5.Direction.FORWARD, 1, .4);
             sleep(200);
             robot.dropPixel1();
             sleep(200);
@@ -63,6 +63,13 @@ public class BottomLeftBlue extends LinearOpMode {
             sleep(200);
             robot.move(Johnny5.Direction.BACKWARD, 10, .4);
             robot.dropPixel2();
+        } else if (detected == Johnny5.ftcColor.UNKNOWN){
+            robot.move(Johnny5.Direction.FORWARD, 7, .4);
+            sleep(200);
+            robot.move(Johnny5.Direction.LEFT, 88, .4);
+            sleep(200);
+            robot.move(Johnny5.Direction.BACKWARD, 10, .4);
+
         } else if (detected == Johnny5.ftcColor.RED) {
             sleep(200);
             robot.move(Johnny5.Direction.FORWARD, 5, .4);
@@ -71,9 +78,10 @@ public class BottomLeftBlue extends LinearOpMode {
             sleep(200);
             robot.move(Johnny5.Direction.BACKWARD, 5, .4);
             sleep(200);
-            Johnny5.ftcColor detected1 = robot.moveUntil(Johnny5.Direction.LEFT, Johnny5.ftcColor.WHITE, Johnny5.ftcColor.WHITE, 27, .2);
+            Johnny5.ftcColor detected1 = robot.moveUntil(Johnny5.Direction.LEFT, Johnny5.ftcColor.WHITE, Johnny5.ftcColor.WHITE, 27, .15);
             sleep(200);
-            if (Johnny5.ftcColor.WHITE == detected1) {
+
+        if (Johnny5.ftcColor.WHITE == detected1) {
                 robot.dropPixel1();
                 sleep(100);
                 robot.move(Johnny5.Direction.FORWARD, 2, .4);
@@ -82,8 +90,6 @@ public class BottomLeftBlue extends LinearOpMode {
                 sleep(200);
                 robot.dropPixel2();
             } else {
-                robot.move(Johnny5.Direction.FORWARD, 2, .4);
-                sleep(200);
                 robot.move(Johnny5.Direction.LEFT, 22, .4);
                 sleep(200);
                 robot.dropPixel1();

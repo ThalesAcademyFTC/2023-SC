@@ -34,11 +34,11 @@ public class AutonPixelTest1 extends LinearOpMode {
 
         while (true) {
 
-
+            robot.detectColor();
             telemetry.addData("R", robot.colorSensor.red()).addData("G", robot.colorSensor.green()).addData("B", robot.colorSensor.blue()).addData("A", robot.colorSensor.alpha());
-            telemetry.addData("Color Detected", robot.detectColor());
+              telemetry.addData("Color Detected", robot.detectColor());
             telemetry.update();
-            robot.detectColorHue();
+
         }
         //Step 1: make sure motor mode is run to position
         //Step 2: 500 Clicks

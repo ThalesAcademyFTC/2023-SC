@@ -61,36 +61,51 @@ public class TopRightRed extends LinearOpMode {
              robot.move(Johnny5.Direction.BACKWARD, 44.5, .4);
              sleep(200);
              robot.move(Johnny5.Direction.RIGHT, 10, .4);
-
-        } else if (Johnny5.ftcColor.RED == detected){
+         } else if (Johnny5.ftcColor.RED == detected){
              robot.move(Johnny5.Direction.RIGHT, 15, .4);
              sleep(200);
              robot.move(Johnny5.Direction.BACKWARD, 17, .4);
              sleep(200);
              Johnny5.ftcColor detected2 = robot.moveUntil(Johnny5.Direction.LEFT, Johnny5.ftcColor.WHITE, Johnny5.ftcColor.RED, 75, .25);
-                sleep(200);
-                if (detected2 == Johnny5.ftcColor.WHITE) {
-                    //code for 2nd spike mark
-                    robot.move(Johnny5.Direction.RIGHT, 2, .4);
-                    sleep(200);
-                    robot.dropPixel1();
-                    sleep(200);
-                    robot.move(Johnny5.Direction.RIGHT, 28, .4);
-                } else {
-                    //code for 3rd spike mark
-                    robot.move(Johnny5.Direction.LEFT, 22, .5);
-                    sleep(200);
-                    robot.dropPixel1();
-                    sleep(200);
-                    robot.move(Johnny5.Direction.BACKWARD,2,.5);
-                    sleep(200);
-                    robot.move(Johnny5.Direction.RIGHT, 50, .5);
-                    sleep(200);
-                    robot.dropPixel2();
-                    sleep(200);
-                    robot.move(Johnny5.Direction.BACKWARD, 2, .5);
-                }
+             sleep(200);
+             if (detected2 == Johnny5.ftcColor.WHITE) {
+                 //code for 2nd spike mark
+                 robot.move(Johnny5.Direction.RIGHT, 2, .4);
+                 sleep(200);
+                 robot.dropPixel1();
+                 sleep(200);
+                 robot.move(Johnny5.Direction.RIGHT, 28, .4);
+                 sleep(200);
+                 robot.dropPixel2();
+                 sleep(200);
+                 robot.move(Johnny5.Direction.BACKWARD, 44.5, .4);
+                 sleep(200);
+                 robot.move(Johnny5.Direction.RIGHT, 22.5, .4);
+             } else if (detected2 == Johnny5.ftcColor.RED) {
+                 //code for 3rd spike mark
+                 robot.move(Johnny5.Direction.LEFT, 22, .5);
+                 sleep(200);
+                 robot.dropPixel1();
+                 sleep(200);
+                 robot.move(Johnny5.Direction.BACKWARD,2,.5);
+                 sleep(200);
+                 robot.move(Johnny5.Direction.RIGHT, 50, .5);
+                 sleep(200);
+                 robot.dropPixel2();
+                 sleep(200);
+                 robot.move(Johnny5.Direction.BACKWARD, 2, .5);
+                 sleep(200);
+                 robot.move(Johnny5.Direction.BACKWARD, 22, .4);
+                 sleep(200);
+             } else if (detected == Johnny5.ftcColor.UNKNOWN){
+             robot.move(Johnny5.Direction.FORWARD, 4, .4);
+             sleep(200);
+             robot.move(Johnny5.Direction.LEFT, 38, .4);
+             sleep(200);
+             robot.move(Johnny5.Direction.BACKWARD, 10, .4);
+
+
          }
 
 
-    }}
+    }}}
