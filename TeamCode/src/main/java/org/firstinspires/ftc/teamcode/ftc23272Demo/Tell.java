@@ -28,7 +28,7 @@ public class Tell extends OpMode {
     boolean DpadRightPressed;
 
     boolean DpadDownPressed;
-    double dd = 0.25;
+    //double dd = 0.25;
     DcMotor motor1;
     DcMotor motor2;
     DcMotor motor3;
@@ -43,9 +43,9 @@ public class Tell extends OpMode {
 
     DcMotor motor6;
 
-    DcMotor motor7;
+    //DcMotor motor7;
 
-    Servo servo4;
+    //Servo servo4;
 
     //reduces the sensitivity of the robot
     public double scaleStickValue(double value) {
@@ -65,7 +65,7 @@ public class Tell extends OpMode {
         motor4 = hardwareMap.get(DcMotor.class, "motor4");
         motor5 = hardwareMap.get(DcMotor.class, "motor5");
         motor6 = hardwareMap.get(DcMotor.class, "motor6");
-        motor7 = hardwareMap.get(DcMotor.class, "motor7");
+        //motor7 = hardwareMap.get(DcMotor.class, "motor7");
 
         motor1.setDirection(DcMotorSimple.Direction.REVERSE);
         //motor2.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -82,19 +82,19 @@ public class Tell extends OpMode {
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
         servo3 = hardwareMap.get(Servo.class, "servo3");
-        servo4 = hardwareMap.get(Servo.class, "servo4");
+        //servo4 = hardwareMap.get(Servo.class, "servo4");
 
         // reset servos to 'center' position, continuous servos to 'off'
-        servo1.setPosition(dd);
+        servo1.setPosition(0.65);
         servo2.setPosition(0.5);
         servo3.setPosition(0.5);
-        servo4.setPosition(.5);
+        //servo4.setPosition(.5);
 
         servo3.setDirection(Servo.Direction.REVERSE);
 
         telemetry.addData("Right", gamepad2.right_trigger);
         telemetry.addData("Left", gamepad2.left_trigger);
-        telemetry.addData("ServoStartingPoint", "%.3f", dd);
+        //telemetry.addData("ServoStartingPoint", "%.3f", dd);
         telemetry.addData("IntakeSpeed", "%.3f", pp);
         telemetry.update();
     }
@@ -104,14 +104,14 @@ public class Tell extends OpMode {
 
 
 
-        if (gamepad2.dpad_up != DpadUpPressed) {
+        /*if (gamepad2.dpad_up != DpadUpPressed) {
             dd += .005;
         }
         DpadUpPressed = gamepad2.dpad_up;
 
         if (gamepad2.dpad_down != DpadDownPressed) {
             dd -= .005;
-        }
+        }*/
         DpadDownPressed = gamepad2.dpad_down;
 
         if (gamepad2.right_bumper) {
@@ -126,13 +126,13 @@ public class Tell extends OpMode {
         }
 
         if (gamepad2.right_stick_y > 0) {
-            servo1.setPosition(dd);
+            servo1.setPosition(0.65);
         }
         if (gamepad2.right_stick_y < 0) {
-            servo1.setPosition(.5);
+            servo1.setPosition(0.51);
         }
         if (gamepad2.right_trigger > .1) {
-            servo2.setPosition(.65);
+            servo2.setPosition(0.65);
         }
         if (gamepad2.right_trigger < .1) {
             servo2.setPosition(0.5);
@@ -163,14 +163,14 @@ public class Tell extends OpMode {
 
 
 
-        if (gamepad2.a && gamepad1.a) {
+        /*if (gamepad2.a && gamepad1.a) {
             motor7.setPower(-1);
         } else {
             motor7.setPower(0);
         }
         if (gamepad2.y && gamepad1.y) {
             servo4.setPosition(.85);
-        }
+        }*/
         if (gamepad2.left_stick_button) {
             motor6.setPower(0);
         }
