@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Teleop (Choose this one!!)")
-public class Tell extends OpMode {
+public class  Tell extends OpMode {
 
     boolean dpadMode = false;
     double pp = 1;
