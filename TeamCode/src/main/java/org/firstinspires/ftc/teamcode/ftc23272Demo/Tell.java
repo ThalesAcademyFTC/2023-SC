@@ -34,7 +34,7 @@ public class Tell extends OpMode {
     DcMotor motor3;
     DcMotor motor4;
 
-    Servo servo1;
+    Servo clawServo;
 
     Servo servo2;
     DcMotor motor5;
@@ -45,7 +45,9 @@ public class Tell extends OpMode {
 
     //DcMotor motor7;
 
-    //Servo servo4;
+    Servo armServo;
+
+    Servo clawHingeServo;
 
     //reduces the sensitivity of the robot
     public double scaleStickValue(double value) {
@@ -79,16 +81,18 @@ public class Tell extends OpMode {
         motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor6.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        servo1 = hardwareMap.get(Servo.class, "servo1");
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
         servo2 = hardwareMap.get(Servo.class, "servo2");
         servo3 = hardwareMap.get(Servo.class, "servo3");
-        //servo4 = hardwareMap.get(Servo.class, "servo4");
+        armServo = hardwareMap.get(Servo.class, "armServo");
+        clawHingeServo = hardwareMap.get(Servo.class, "clawHingeServo");
 
         // reset servos to 'center' position, continuous servos to 'off'
-        servo1.setPosition(0.65);
+        clawServo.setPosition(0.65);
         servo2.setPosition(0.5);
         servo3.setPosition(0.5);
-        //servo4.setPosition(.5);
+        armServo.setPosition(0.1);
+        clawHingeServo.setPosition(0.5);
 
         servo3.setDirection(Servo.Direction.REVERSE);
 
@@ -125,11 +129,11 @@ public class Tell extends OpMode {
             motor5.setPower(0);
         }
 
-        if (gamepad2.right_stick_y > 0) {
-            servo1.setPosition(0.65);
+        if (gamepad2.right_stick_y > .1) {
+            clawServo.setPosition(0.65);
         }
-        if (gamepad2.right_stick_y < 0) {
-            servo1.setPosition(0.51);
+        if (gamepad2.right_stick_y < .1) {
+            clawServo.setPosition(0.3);
         }
         if (gamepad2.right_trigger > .1) {
             servo2.setPosition(0.65);
@@ -142,6 +146,18 @@ public class Tell extends OpMode {
         }
         if (gamepad2.left_trigger < .1) {
             servo3.setPosition(0.5);
+        }
+        if (gamepad1.right_trigger > .1) {
+            armServo.setPosition(0.7);
+        }
+        if (gamepad1.right_trigger < .1) {
+            armServo.setPosition(0.1);
+        }
+        if (gamepad1.left_trigger > .1) {
+            clawHingeServo.setPosition(0.65);
+        }
+        if (gamepad1.left_trigger < .1) {
+            clawHingeServo.setPosition(0.5);
         }
         if (gamepad2.dpad_left != DpadLeftPressed) {
             pp -= .005;
