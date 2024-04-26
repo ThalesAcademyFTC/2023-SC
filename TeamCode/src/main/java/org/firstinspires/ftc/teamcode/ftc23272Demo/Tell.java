@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gam
 import static java.lang.Math.min;
 
 import android.graphics.RenderNode;
-import android.view.Display;
+import android.view.Display; 
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -34,18 +34,28 @@ public class Tell extends OpMode {
     DcMotor motor3;
     DcMotor motor4;
 
-    Servo servo1;
+    Servo clawServo;
 
     Servo servo2;
     DcMotor motor5;
 
-    Servo servo3;
+    Servo clawHingeServo;
 
     DcMotor motor6;
 
     //DcMotor motor7;
 
-    //Servo servo4;
+    Servo armServo;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+    Servo clawHingeServo;
+>>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
+=======
+
+    Servo clawHingeServo;
+>>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
 
     //reduces the sensitivity of the robot
     public double scaleStickValue(double value) {
@@ -79,16 +89,36 @@ public class Tell extends OpMode {
         motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor6.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        servo1 = hardwareMap.get(Servo.class, "servo1");
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
         servo2 = hardwareMap.get(Servo.class, "servo2");
+<<<<<<< HEAD
+        clawHingeServo = hardwareMap.get(Servo.class, "clawHingeServo");
+        armServo = hardwareMap.get(Servo.class, "armServo");
+
+=======
         servo3 = hardwareMap.get(Servo.class, "servo3");
-        //servo4 = hardwareMap.get(Servo.class, "servo4");
+        armServo = hardwareMap.get(Servo.class, "armServo");
+        clawHingeServo = hardwareMap.get(Servo.class, "clawHingeServo");
+<<<<<<< HEAD
+>>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
+=======
+>>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
 
         // reset servos to 'center' position, continuous servos to 'off'
-        servo1.setPosition(0.65);
+        clawServo.setPosition(0.65);
         servo2.setPosition(0.5);
+<<<<<<< HEAD
+        clawHingeServo.setPosition(0.5);
+        armServo.setPosition(0.5);
+
+=======
         servo3.setPosition(0.5);
-        //servo4.setPosition(.5);
+        armServo.setPosition(0.7);
+        clawHingeServo.setPosition(0.5);
+<<<<<<< HEAD
+>>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
+=======
+>>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
 
         servo3.setDirection(Servo.Direction.REVERSE);
 
@@ -125,24 +155,67 @@ public class Tell extends OpMode {
             motor5.setPower(0);
         }
 
-        if (gamepad2.right_stick_y > 0) {
-            servo1.setPosition(0.65);
+        /*if (gamepad2.right_stick_y > .1) {
+            clawServo.setPosition(0.65);
         }
-        if (gamepad2.right_stick_y < 0) {
-            servo1.setPosition(0.51);
-        }
+        if (gamepad2.right_stick_y < .1) {
+            clawServo.setPosition(0.3);
+        }*/
+        //Gamepad2 right trigger wiggles one servo
         if (gamepad2.right_trigger > .1) {
             servo2.setPosition(0.65);
         }
         if (gamepad2.right_trigger < .1) {
             servo2.setPosition(0.5);
         }
+        //Wiggles other servo
         if (gamepad2.left_trigger > .1) {
             servo3.setPosition(.65);
         }
         if (gamepad2.left_trigger < .1) {
             servo3.setPosition(0.5);
         }
+
+        switch(gampad2.left_stick_y){
+           case 0.02: armServo.setPosition(0.02);
+            break;
+            case 0.04: armServo.setPosition(0.04);
+            break; 
+            case 0.06: armServo.setPosition(0.06);
+            break;
+            case 0.08: armServo.setPosition(0.08);
+            break;
+            case 0.1: armServo.setPosition(0.1);
+            break;
+            default: armServo.setPosition(0);
+        }
+        
+        //gamepad1 right trigger moves arm to set positions
+        if (gamepad1.right_trigger > .1) {
+            armServo.setPosition(0.7);
+        }   
+        if (gamepad1.right_trigger < .1) {
+            armServo.setPosition(0.1);
+        //gamepad1 left trigger moves the claw hinge to set positions
+        }
+        if (gamepad1.left_trigger > .1) {
+            clawHingeServo.setPosition(0.65);
+        }
+        if (gamepad1.left_trigger < .1) {
+            clawHingeServo.setPosition(0.5);
+        }
+        //gamepad1 left bumper opens the claw
+        if (gamepad1.left_bumper > .1) {
+            clawServo.setPosition(0.65);
+        }
+        //gamepad1 right bumper closes the claw
+        if (gamepad1.right_bumper < .1) {
+            clawServo.setPosition(0.3);
+        }
+<<<<<<< HEAD
+>>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
+=======
+>>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
         if (gamepad2.dpad_left != DpadLeftPressed) {
             pp -= .005;
         }
@@ -160,8 +233,45 @@ public class Tell extends OpMode {
         } else {
             motor6.setPower(0);
         }
-
-
+        //BEGIN CODE FOR SCUFFED PRECISION ARM MOVEMENT
+        //SCUFFED UPWARD MOVEMENT
+        /*if (gamepad2.right_stick_y > .1) {
+            armServo.setPosition(0.6);
+        }
+        if (gamepad2.right_stick_y > .2) {
+            armServo.setPosition(0.5);
+        }
+        if (gamepad2.right_stick_y > .3) {
+            armServo.setPosition(0.4);
+        }
+        if (gamepad2.right_stick_y > .4) {
+            armServo.setPosition(0.3);
+        }
+        if (gamepad2.right_stick_y > .5) {
+            armServo.setPosition(0.2);
+        }
+        if (gamepad2.right_stick_y > .6) {
+            armServo.setPosition(0.1);
+        }
+        //SCUFFED DOWNWARD MOVEMENT
+        if (gamepad2.right_stick_y < .6) {
+            armServo.setPosition(0.1);
+        }
+        if (gamepad2.right_stick_y < .5) {
+            armServo.setPosition(0.2);
+        }
+        if (gamepad2.right_stick_y < .4) {
+            armServo.setPosition(0.3);
+        }
+        if (gamepad2.right_stick_y < .3) {
+            armServo.setPosition(0.4);
+        }
+        if (gamepad2.right_stick_y < .2) {
+            armServo.setPosition(0.5);
+        }
+        if (gamepad2.right_stick_y < .1) {
+            armServo.setPosition(0.6);
+        }*/
 
         /*if (gamepad2.a && gamepad1.a) {
             motor7.setPower(-1);
