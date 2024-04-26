@@ -45,7 +45,7 @@ public class  Tell extends OpMode {
 
     //DcMotor motor7;
 
-    //Servo servo4;
+    Servo servo4;
 
     //reduces the sensitivity of the robot
     public double scaleStickValue(double value) {
@@ -82,13 +82,13 @@ public class  Tell extends OpMode {
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
         servo3 = hardwareMap.get(Servo.class, "servo3");
-        //servo4 = hardwareMap.get(Servo.class, "servo4");
+        servo4 = hardwareMap.get(Servo.class, "servo4");
 
         // reset servos to 'center' position, continuous servos to 'off'
         servo1.setPosition(0.65);
         servo2.setPosition(0.5);
         servo3.setPosition(0.5);
-        //servo4.setPosition(.5);
+        servo4.setPosition(.5);
 
         servo3.setDirection(Servo.Direction.REVERSE);
 
