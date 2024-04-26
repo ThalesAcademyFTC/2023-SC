@@ -37,6 +37,7 @@ public class Tell extends OpMode {
     Servo clawServo;
 
     Servo servo2;
+    Servo servo3;
     DcMotor motor5;
 
     Servo clawHingeServo;
@@ -46,16 +47,7 @@ public class Tell extends OpMode {
     //DcMotor motor7;
 
     Servo armServo;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
-    Servo clawHingeServo;
->>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
-=======
-
-    Servo clawHingeServo;
->>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
 
     //reduces the sensitivity of the robot
     public double scaleStickValue(double value) {
@@ -91,34 +83,18 @@ public class Tell extends OpMode {
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
         servo2 = hardwareMap.get(Servo.class, "servo2");
-<<<<<<< HEAD
         clawHingeServo = hardwareMap.get(Servo.class, "clawHingeServo");
         armServo = hardwareMap.get(Servo.class, "armServo");
-
-=======
         servo3 = hardwareMap.get(Servo.class, "servo3");
-        armServo = hardwareMap.get(Servo.class, "armServo");
-        clawHingeServo = hardwareMap.get(Servo.class, "clawHingeServo");
-<<<<<<< HEAD
->>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
-=======
->>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
+
+
 
         // reset servos to 'center' position, continuous servos to 'off'
         clawServo.setPosition(0.65);
         servo2.setPosition(0.5);
-<<<<<<< HEAD
         clawHingeServo.setPosition(0.5);
         armServo.setPosition(0.5);
-
-=======
         servo3.setPosition(0.5);
-        armServo.setPosition(0.7);
-        clawHingeServo.setPosition(0.5);
-<<<<<<< HEAD
->>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
-=======
->>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
 
         servo3.setDirection(Servo.Direction.REVERSE);
 
@@ -176,7 +152,7 @@ public class Tell extends OpMode {
             servo3.setPosition(0.5);
         }
 
-        switch(gampad2.left_stick_y){
+        switch(gamepad2.left_stick_y){
            case 0.02: armServo.setPosition(0.02);
             break;
             case 0.04: armServo.setPosition(0.04);
@@ -212,10 +188,7 @@ public class Tell extends OpMode {
         if (gamepad1.right_bumper < .1) {
             clawServo.setPosition(0.3);
         }
-<<<<<<< HEAD
->>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
-=======
->>>>>>> 7b9bd0da1ca399762e28d4596c375a20ad1cf461
+
         if (gamepad2.dpad_left != DpadLeftPressed) {
             pp -= .005;
         }
