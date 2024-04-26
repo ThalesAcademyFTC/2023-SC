@@ -181,11 +181,11 @@ public class Tell extends OpMode {
             clawHingeServo.setPosition(0.5);
         }
         //gamepad1 left bumper opens the claw
-        if (gamepad1.left_bumper > .1) {
+        if (gamepad1.left_bumper) {
             clawServo.setPosition(0.65);
         }
         //gamepad1 right bumper closes the claw
-        if (gamepad1.right_bumper < .1) {
+        if (gamepad1.right_bumper) {
             clawServo.setPosition(0.3);
         }
 
