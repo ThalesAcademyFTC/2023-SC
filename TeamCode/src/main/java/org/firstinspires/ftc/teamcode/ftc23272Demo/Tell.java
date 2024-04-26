@@ -152,19 +152,6 @@ public class Tell extends OpMode {
             servo3.setPosition(0.5);
         }
 
-        switch(gamepad2.left_stick_y){
-           case 0.02: armServo.setPosition(0.02);
-            break;
-            case 0.04: armServo.setPosition(0.04);
-            break; 
-            case 0.06: armServo.setPosition(0.06);
-            break;
-            case 0.08: armServo.setPosition(0.08);
-            break;
-            case 0.1: armServo.setPosition(0.1);
-            break;
-            default: armServo.setPosition(0);
-        }
         
         //gamepad1 right trigger moves arm to set positions
         if (gamepad1.right_trigger > .1) {
