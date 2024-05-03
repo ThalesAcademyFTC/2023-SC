@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ftc23272Demo;
+package org.firstinspires.ftc.teamcode.ftc23272demo;
 
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Teleop (Choose this one!!)")
-public class Tell extends OpMode {
+public class  Tell extends OpMode {
 
     boolean dpadMode = false;
     double pp = 1;
