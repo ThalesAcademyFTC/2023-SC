@@ -48,6 +48,8 @@ public class Tell extends OpMode {
 
     Servo armServo;
 
+    Servo servoTest;
+
 
     //reduces the sensitivity of the robot
     public double scaleStickValue(double value) {
@@ -86,7 +88,7 @@ public class Tell extends OpMode {
         clawHingeServo = hardwareMap.get(Servo.class, "clawHingeServo");
         armServo = hardwareMap.get(Servo.class, "armServo");
         servo3 = hardwareMap.get(Servo.class, "servo3");
-
+        servoTest = hardwareMap.get(Servo.class, "servoTest");
 
 
         // reset servos to 'center' position, continuous servos to 'off'
@@ -95,6 +97,7 @@ public class Tell extends OpMode {
         clawHingeServo.setPosition(0.5);
         armServo.setPosition(0.5);
         servo3.setPosition(0.5);
+        servoTest.setPosition(0.5);
 
         servo3.setDirection(Servo.Direction.REVERSE);
 
@@ -137,6 +140,7 @@ public class Tell extends OpMode {
         if (gamepad2.right_stick_y < .1) {
             clawServo.setPosition(0.3);
         }*/
+
         //Gamepad2 right trigger wiggles one servo
         if (gamepad2.right_trigger > .1) {
             servo2.setPosition(0.65);
@@ -150,6 +154,13 @@ public class Tell extends OpMode {
         }
         if (gamepad2.left_trigger < .1) {
             servo3.setPosition(0.5);
+        }
+        //Testing for servo functionality
+        if (gamepad2.dpad_up) {
+            servoTest.setPosition(1);
+        }
+        if (gamepad2.dpad_down) {
+            servoTest.setPosition(0);
         }
 
         
@@ -168,11 +179,11 @@ public class Tell extends OpMode {
             clawHingeServo.setPosition(0.5);
         }
         //gamepad1 left bumper opens the claw
-        if (gamepad1.left_bumper) {
+        if (gamepad1.x) {
             clawServo.setPosition(0.65);
         }
         //gamepad1 right bumper closes the claw
-        if (gamepad1.right_bumper) {
+        if (gamepad1.b) {
             clawServo.setPosition(0.3);
         }
 
