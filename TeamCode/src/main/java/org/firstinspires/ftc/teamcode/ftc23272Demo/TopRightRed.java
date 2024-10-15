@@ -11,11 +11,25 @@ public class TopRightRed extends LinearOpMode {
 
     public Johnny5 robot;
     private ElapsedTime runtime = new ElapsedTime();
+    private Spark robot;
 
+    private ElapsedTime runtime = new ElapsedTime();
+
+    private Finder finder;
+
+    private Spark.Team team = Spark.Team.RED;
+
+    private Finder.SPIKE_MARK propLocation;
 
 
     @Override
     public void runOpMode() {
+        robot = new Spark(this, Spark.Drivetrain.MECHANUM);
+
+        finder = new Finder(this, robot.webcamName, team);
+        runtime.reset();
+
+        finder.init();
 
         telemetry.addData("Status", "Initialized");
         runtime.reset();
@@ -24,6 +38,22 @@ public class TopRightRed extends LinearOpMode {
         robot = new Johnny5();
         robot.init(hardwareMap, telemetry);
 
+        while ( opModeIsActive() && propLocation == null ) {
+
+            finder.scanWithTelemetry();
+
+            propLocation = finder.getPropLocation();
+            //This updates the array of current detections inside tagger
+
+            telemetry.addData("Pixel Spike Location: ", propLocation);
+
+            telemetry.update();
+
+            // Share the CPU.
+
+            sleep(20);
+
+        }
 
         //Code Above the waitForStart() is where you define variables or initialize any Vuforia
         waitForStart(); //Below this point is where you place the linear code for your autonomous.
